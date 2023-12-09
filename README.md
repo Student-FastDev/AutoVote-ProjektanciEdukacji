@@ -64,7 +64,7 @@ Edit the settings by opening the settings.json (will appear after running the pr
 ```plain
 {
     "iterations": 100, <- The number of iterations to run the program.
-    "link": "https://projektanciedukacji.pl/api/vote-email/[PROJECT_ID]" <- Link to the site api.
+    "link": "https://projektanciedukacji.pl/api/vote-email/[PROJECT_ID]" <- Link to the website api.
     "threads": 5 <- The number of threads working simultaneously.
 }
 ```
