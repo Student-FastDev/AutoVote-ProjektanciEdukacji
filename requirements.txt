@@ -1,0 +1,4 @@
+1secMail==1.1.0
+clear_screen==0.1.14
+Requests==2.31.0
+tqdm==4.66.1
