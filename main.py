@@ -13,12 +13,15 @@ from os.path import isfile
 import concurrent.futures
 from concurrent.futures import as_completed
 from tqdm import tqdm
+import os
 
 # Define settings
 DEFAULT_SETTINGS = {
     "iterations": 100,
     "link": "https://projektanciedukacji.pl/api/vote-email/[PROJECT_ID]",
-    "threads": 5
+    "threads": 5,
+    "use_proxy": False,
+    "proxy_file": "proxies.txt"
 }
 
 # Function to load settings from a JSON file
@@ -28,11 +31,27 @@ def load_settings():
         # If not, create one with default settings
         with open('settings.json', 'w') as settings_file:
             json.dump(DEFAULT_SETTINGS, settings_file, indent=4)
+        clear()
+        print("Settings file created. Please update the settings and run the program again.")
+        os._exit(1)
     # Open the settings file and load the settings
     with open('settings.json', 'r') as settings_file:
         settings = json.load(settings_file)
+    # Check if proxy file exists
+    if settings["use_proxy"] and not isfile(settings["proxy_file"]):
+        # If not, create one with default settings
+        with open(settings["proxy_file"], 'w') as proxy_file:
+            proxy_file.write("DEFAULT_PROXY")
+        clear()
+        print("Proxy file created. Please update the proxies and run the program again.")
+        os._exit(1)
     # Return the settings
     return settings
+# Function to load proxies from a file
+def load_proxies(file_path):
+    with open(file_path, 'r') as proxy_file:
+        proxies = proxy_file.readlines()
+    return proxies
 
 # Function to generate a person's details
 def generate_person():
@@ -48,7 +67,7 @@ def generate_person():
     return name, surname
 
 # Function to send a post request
-def send_post_request(name, surname, email, phone, select, link):
+def send_post_request(name, surname, email, phone, select, link, proxy=None):
     # Define the payload
     payload = {
         'name': name,
@@ -57,19 +76,35 @@ def send_post_request(name, surname, email, phone, select, link):
         'phone': phone,
         'select': select
     }
-    # Send the post request
-    requests.post(link, json=payload)
+    try:
+        # Send the post request and wait for the response
+        response = requests.post(link, json=payload, proxies={"http": proxy, "https": proxy}) if proxy else requests.post(link, json=payload)
+        # Check if the response status code is not 200
+        if response.status_code != 200:
+            clear()
+            print(f"Error! Received status code {response.status_code} from the server. Check the link!")
+            os._exit(1)
+    except requests.exceptions.RequestException as e:
+        # Handle any exceptions that requests might throw
+        clear()
+        print(f"Error! An error occurred while sending the post request. Check proxies!")
+        os._exit(1)
+    return response
 
 # Function to confirm the request
-def confirm_request(client, email):
+def confirm_request(client, email, proxy=None):
     # Wait for a new message
     messageWait = client.await_new_message(email)
     # Get the message
     message = client.get_message(address=email, message_id=messageWait.id)
     # Get the confirmation link from the message
-    confirmLink = requests.get(re.search("(?<=<a href=\")(.*?)(?=\")", message.html_body).group(0), allow_redirects=False)
-    # Send a post request to the confirmation link
-    requests.post(confirmLink.headers['Location'])
+    confirmLink = requests.get(re.search("(?<=<a href=\")(.*?)(?=\")", message.html_body).group(0), allow_redirects=False, proxies={"http": proxy, "https": proxy} if proxy else None)
+    # Send a post request to the confirmation link and wait for the response
+    response = requests.post(confirmLink.headers['Location'], proxies={"http": proxy, "https": proxy} if proxy else None)
+    # If the request was not successful, wait and retry
+    while response.status_code != 200:
+        time.sleep(1)
+        response = requests.post(confirmLink.headers['Location'], proxies={"http": proxy, "https": proxy} if proxy else None)
 
 # Function to append an email to a JSON file
 def append_email_to_file(email, email_domain, file_path='emails.json'):
@@ -121,10 +156,16 @@ def main(i, settings):
     ]
     # Select a random email domain
     email_domain = choice(email_domains)
+    # Load proxies if use_proxy is enabled
+    proxy = None
+    if settings["use_proxy"]:
+        proxies = load_proxies(settings["proxy_file"])
+        proxy = random.choice(proxies).strip()
+
     # Send a post request
-    send_post_request(name, surname, email + email_domain, phone, select, settings['link'])
+    send_post_request(name, surname, email + email_domain, phone, select, settings['link'], proxy)
     # Confirm the request
-    confirm_request(client, email + email_domain)
+    confirm_request(client, email + email_domain, proxy)
     # Append the email to the JSON file
     append_email_to_file(email, email_domain, 'emails.json')
 
@@ -141,3 +182,5 @@ if __name__ == "__main__":
             for future in as_completed(futures):
                 # Update the progress bar
                 pbar.update()
+    clear()
+    print("Finished!")
