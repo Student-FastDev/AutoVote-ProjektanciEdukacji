@@ -2,8 +2,6 @@
 
 AutoVote bot for ProjektanciEdukacji made with Python and Requests.
 
-Made for educational purposes!
-
 ## Table of Contents
 - [Questions](#questions)
   - [How this works?](#how-this-works)
