@@ -1,70 +1,82 @@
 # AutoVote-ProjektanciEdukacji
 
-AutoVote bot for ProjektanciEdukacji made with Python and Requests.
+**AutoVote-ProjektanciEdukacji** is a Python-based bot designed to automate the voting process on the ProjektanciEdukacji website. Utilizing the Requests library, it generates random user details, submits votes through POST requests, and handles vote confirmations via the secmail library.
 
-## Table of Contents
-- [Questions](#questions)
-  - [How this works?](#how-this-works)
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-- [Usage](#usage)
-  - [Running the Python File](#running-the-python-file)
+## Features
 
-## Questions
+- **Automated Voting:** Automatically submit votes using generated random user details.
+- **Email Confirmation:** Handle confirmation emails with the secmail library to verify votes.
+- **Multithreading Support:** Run multiple threads simultaneously for efficient voting.
+- **Proxy Support:** Optionally use proxies to mask voting origins and enhance anonymity.
 
-### How this works?
+## Prerequisites
 
-The bot automates the voting process on the ProjektanciEdukacji website using Python and the Requests library. It generates random person details, submits votes through a POST request, and confirms votes by handling confirmation emails using the secmail library.
+To run the AutoVote-ProjektanciEdukacji script, ensure you have the following installed:
 
-## Getting Started
+- **Python:** Version 3.6 or higher.
+- **Git:** For cloning the repository.
 
-This section will guide you through setting up and running the project locally.
+## Installation
 
-### Prerequisites
+1. **Clone the Repository:**
 
-Before you begin, ensure you have the following installed:
-- Python
-- Git
+    ```sh
+    git clone https://github.com/Student-FastDev/AutoVote-ProjektanciEdukacji
+    cd AutoVote-ProjektanciEdukacji
+    ```
 
-### Installation
+2. **Install Required Packages:**
 
-1. Clone this repository to your local machine using Git:
+    Install the necessary Python packages using `pip`:
 
-```plain
-git clone https://github.com/Student-FastDev/AutoVote-ProjektanciEdukacji
-```
-
-2. Change to the project directory:
-
-```plain
-cd (path to AutoVote-ProjektanciEdukacji)
-```
-
-3. Install the required Python packages using pip and the requirements.txt file:
-
-```plain
-pip install -r requirements.txt
-```
+    ```sh
+    pip install -r requirements.txt
+    ```
 
 ## Usage
 
-### Running the Python File
+1. **Run the Python Script:**
 
-To run the Python file, use the following command while being in the repository folder:
+    Execute the main script to start the voting process:
 
-```bash
-python main.py
-```
+    ```bash
+    python main.py
+    ```
 
-Edit the settings by opening the settings.json (will appear after running the program for the first time) in some text editor.
+2. **Configure Settings:**
 
-```plain
-{
-    "iterations": 100, <- The number of iterations to run the program.
-    "link": "https://projektanciedukacji.pl/api/vote-email/[PROJECT_ID]" <- Link to the website api.
-    "threads": 5, <- The number of threads working simultaneously.
-    "use_proxy": False, <- Use of proxy.
-    "proxy_file": "proxies.txt" <- The file where are proxies.
-}
-```
+    After running the program for the first time, a `settings.json` file will be generated. Open this file in a text editor to customize your settings:
+
+    ```json
+    {
+        "iterations": 100, 
+        "link": "https://projektanciedukacji.pl/api/vote-email/[PROJECT_ID]",
+        "threads": 5,
+        "use_proxy": false,
+        "proxy_file": "proxies.txt"
+    }
+    ```
+
+    - **iterations:** The number of votes to submit.
+    - **link:** The API endpoint for voting. Replace `[PROJECT_ID]` with the actual project ID.
+    - **threads:** Number of threads to run simultaneously.
+    - **use_proxy:** Set to `true` to enable proxy usage.
+    - **proxy_file:** Path to the file containing proxy addresses.
+
+## Notes
+
+- **API Endpoint:** Ensure the `link` in `settings.json` is correct and points to the appropriate voting API.
+- **Proxy Configuration:** If using proxies, populate the `proxies.txt` file with valid proxy addresses, one per line.
+- **Email Handling:** The secmail library is used to manage confirmation emails. Ensure that the email service is properly configured.
+
+## Contributing
+
+Contributions are welcome! Feel free to submit issues, report bugs, or propose enhancements via pull requests. For major changes, please open an issue first to discuss your ideas.
+
+**AutoVote-ProjektanciEdukacji** aims to streamline the voting process on the ProjektanciEdukacji platform, making it easier and more efficient for users to participate.
+
+---
+
+<div align="center">  
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0kgCFXOUHmQSSLqwMxHym-7oSEVwfPQqthA&s" alt="Logo1" width="50px">
+</div>
