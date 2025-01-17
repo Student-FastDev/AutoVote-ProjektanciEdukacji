@@ -78,5 +78,5 @@ Contributions are welcome! Feel free to submit issues, report bugs, or propose e
 ---
 
 <div align="center">  
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0kgCFXOUHmQSSLqwMxHym-7oSEVwfPQqthA&s" alt="Logo1" width="50px">
+<img src="https://i.imgur.com/EHiOHX8.png" alt="Projektanci Logo" width="50px">
 </div>
