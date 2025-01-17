@@ -69,12 +69,6 @@ To run the AutoVote-ProjektanciEdukacji script, ensure you have the following in
 - **Proxy Configuration:** If using proxies, populate the `proxies.txt` file with valid proxy addresses, one per line.
 - **Email Handling:** The secmail library is used to manage confirmation emails. Ensure that the email service is properly configured.
 
-## Contributing
-
-Contributions are welcome! Feel free to submit issues, report bugs, or propose enhancements via pull requests. For major changes, please open an issue first to discuss your ideas.
-
-**AutoVote-ProjektanciEdukacji** aims to streamline the voting process on the ProjektanciEdukacji platform, making it easier and more efficient for users to participate.
-
 ---
 
 <div align="center">  
