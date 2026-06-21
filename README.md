@@ -1,13 +1,6 @@
 # AutoVote-ProjektanciEdukacji
 
-**AutoVote-ProjektanciEdukacji** is a Python-based bot designed to automate the voting process on the ProjektanciEdukacji website. Utilizing the Requests library, it generates random user details, submits votes through POST requests, and handles vote confirmations via the secmail library.
-
-## Features
-
-- **Automated Voting:** Automatically submit votes using generated random user details.
-- **Email Confirmation:** Handle confirmation emails with the secmail library to verify votes.
-- **Multithreading Support:** Run multiple threads simultaneously for efficient voting.
-- **Proxy Support:** Optionally use proxies to mask voting origins and enhance anonymity.
+Bot to automate the voting process on the ProjektanciEdukacji website.
 
 ## Prerequisites
 
@@ -65,12 +58,12 @@ To run the AutoVote-ProjektanciEdukacji script, ensure you have the following in
 
 ## Notes
 
+- **Email Handling:** The secmail library is used to automatically manage confirmation emails and verify votes. Ensure that the email service is properly configured.
 - **API Endpoint:** Ensure the `link` in `settings.json` is correct and points to the appropriate voting API.
-- **Proxy Configuration:** If using proxies, populate the `proxies.txt` file with valid proxy addresses, one per line.
-- **Email Handling:** The secmail library is used to manage confirmation emails. Ensure that the email service is properly configured.
+- **Proxy Configuration:** Optionally use proxies to mask voting origins and enhance anonymity. If using proxies, populate the `proxies.txt` file with valid proxy addresses, one per line.
 
 ---
 
 <div align="center">  
-<img src="https://i.imgur.com/EHiOHX8.png" alt="Projektanci Logo" width="50px">
+    <img src="https://i.imgur.com/EHiOHX8.png" alt="Projektanci Logo" width="50px">
 </div>
