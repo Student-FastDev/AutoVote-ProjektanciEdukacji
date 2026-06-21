@@ -4,7 +4,7 @@ Bot to automate the voting process on the ProjektanciEdukacji website.
 
 ## Prerequisites
 
-To run the AutoVote-ProjektanciEdukacji script, ensure you have the following installed:
+To run, ensure you have the following installed:
 
 - **Python:** Version 3.6 or higher.
 - **Git:** For cloning the repository.
